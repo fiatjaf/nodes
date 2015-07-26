@@ -26,9 +26,13 @@ func main() {
 	middle.UseHandler(router)
 	// ~
 
-	// > normal pages and index
+	// > routes
 	router.HandleFunc("/r/", CreateRelationship).Methods("POST")
 	router.HandleFunc("/r/", ViewRelationships).Methods("GET")
+	// ~
+
+	// static files
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
 	// ~
 
 	port := os.Getenv("PORT")
