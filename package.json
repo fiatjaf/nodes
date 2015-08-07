@@ -1,0 +1,24 @@
+{
+  "name": "nodes",
+  "version": "0.0.1",
+  "description": "",
+  "main": "site/app.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "^11.0.1",
+    "browserify-incremental": "^3.0.1",
+    "coffeeify": "^1.1.0",
+    "less": "^2.5.1",
+    "lie": "^3.0.0",
+    "routerjs": "^1.0.3",
+    "superagent": "^1.2.0",
+    "superagent-promise": "^1.0.3",
+    "talio": "0.0.2",
+    "virtual-dom": "^2.1.0",
+    "virtual-elements": "0.0.2"
+  }
+}

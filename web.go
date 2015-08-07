@@ -3,19 +3,22 @@ package main
 import (
 	"github.com/carbocation/interpose"
 	"github.com/gorilla/mux"
-	"github.com/jmoiron/sqlx"
+	"github.com/jmcvetta/neoism"
 	"log"
 	"net/http"
 	"os"
 
-	_ "github.com/go-cq/cq"
+	"nodes/handlers"
 )
 
-var db *sqlx.DB
+var db *neoism.Database
 
 func main() {
-	db = sqlx.MustConnect("neo4j-cypher", os.Getenv("NEO4J_URL"))
-	db = db.Unsafe()
+	var err error
+	db, err = neoism.Connect(os.Getenv("NEO4J_URL"))
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// middleware
 	middle := interpose.New()
@@ -27,11 +30,19 @@ func main() {
 	// ~
 
 	// > routes
-	router.HandleFunc("/r/", CreateRelationship).Methods("POST")
-	router.HandleFunc("/r/", ViewRelationships).Methods("GET")
+	router.HandleFunc("/rel/", func(w http.ResponseWriter, r *http.Request) {
+		handlers.CreateRelationship(db, w, r)
+	}).Methods("POST")
+	router.HandleFunc("/rel/", func(w http.ResponseWriter, r *http.Request) {
+		handlers.ViewRelationships(db, w, r)
+	}).Methods("GET")
+	router.HandleFunc("/eql/", func(w http.ResponseWriter, r *http.Request) {
+		handlers.CreateEquality(db, w, r)
+	}).Methods("POST")
 	// ~
 
 	// static files
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./site/")))
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
 	// ~
 
