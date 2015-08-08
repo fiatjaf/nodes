@@ -91,8 +91,21 @@ func GenerateDotString(res []struct {
 		})
 		g.AddEdge(aname, bname, true, map[string]string{
 			"label": rkind,
+			"dir":   RelationshipDir(rkind),
 		})
 	}
 
 	return g.String()
+}
+
+func RelationshipDir(kind string) string {
+	undirectedKinds := map[string]bool{
+		"related":      true,
+		"similar":      true,
+		"same_purpose": true,
+	}
+	if _, ok := undirectedKinds[kind]; ok {
+		return "none"
+	}
+	return "normal"
 }
