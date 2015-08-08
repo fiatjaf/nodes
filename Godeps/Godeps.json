@@ -13,13 +13,17 @@
 			"Rev": "12a46cd4a183cabd212b37144cf4df55454cf1b8"
 		},
 		{
-			"ImportPath": "github.com/carbocation/interpose",
-			"Rev": "50c09d12f8624ab10532f931cb630d0bf5f7c2c7"
+			"ImportPath": "github.com/awalterschulze/gographviz",
+			"Rev": "7c3cf72121515513fad9d6c9a090db2aa4f47143"
 		},
 		{
-			"ImportPath": "github.com/go-cq/cq",
-			"Comment": "v0.1.0-41-g94cc8dd",
-			"Rev": "94cc8dd78c4b89c47088dea9079ffdab37859811"
+			"ImportPath": "github.com/bmizerany/assert",
+			"Comment": "release.r60-6-ge17e998",
+			"Rev": "e17e99893cb6509f428e1728281c2ad60a6b31e3"
+		},
+		{
+			"ImportPath": "github.com/carbocation/interpose",
+			"Rev": "50c09d12f8624ab10532f931cb630d0bf5f7c2c7"
 		},
 		{
 			"ImportPath": "github.com/gorilla/context",
@@ -30,18 +34,30 @@
 			"Rev": "e444e69cbd2e2e3e0749a2f3c717cec491552bbf"
 		},
 		{
-			"ImportPath": "github.com/jmoiron/sqlx",
-			"Comment": "sqlx-v1.1",
-			"Rev": "69738bd209812c5a381786011aff17944a384554"
+			"ImportPath": "github.com/jmcvetta/napping",
+			"Comment": "v1",
+			"Rev": "2d97c78f6d03e78ba167e2a252e578014c7769f9"
+		},
+		{
+			"ImportPath": "github.com/jmcvetta/neoism",
+			"Rev": "018a0d6ca65660df48f4a86b1f47eba35916e07c"
+		},
+		{
+			"ImportPath": "github.com/jmcvetta/randutil",
+			"Rev": "8c8db8477594beda2db3cb1e840a0e3e60ff2739"
+		},
+		{
+			"ImportPath": "github.com/kr/pretty",
+			"Comment": "go.weekly.2011-12-22-24-gf31442d",
+			"Rev": "f31442d60e51465c69811e2107ae978868dbea5c"
+		},
+		{
+			"ImportPath": "github.com/kr/text",
+			"Rev": "6807e777504f54ad073ecef66747de158294b639"
 		},
 		{
 			"ImportPath": "golang.org/x/net/html",
 			"Rev": "8c5df243b6b387aeb4414824098c7630eca62cef"
-		},
-		{
-			"ImportPath": "gopkg.in/cq.v1/types",
-			"Comment": "v0.1.0-68-gc5c4a56",
-			"Rev": "c5c4a56ead4e0146cec28a7638cd44b506922b92"
 		}
 	]
 }
