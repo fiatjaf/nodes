@@ -1,24 +1,30 @@
 package helpers
 
 import (
+	"bytes"
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/awalterschulze/gographviz"
+	"github.com/jmcvetta/neoism"
 	"log"
 	"net/url"
+	"os/exec"
 	"strings"
 )
 
-func IsURL(potentialURL string) bool {
+func ParseURL(potentialURL string) (string, error) {
 	u, err := url.Parse(potentialURL)
+	u.Fragment = ""
 	if err != nil {
-		return false
+		return "", err
 	}
 	if u.Scheme == "" {
-		return false
+		return "", err
 	}
 	if u.Host == "" {
-		return false
+		return "", err
 	}
-	return true
+	return u.String(), nil
 }
 
 func GetTitle(URL string) (string, error) {
@@ -39,7 +45,7 @@ func GetTitle(URL string) (string, error) {
 		return path[len(path)-1], nil
 	}
 
-	return doc.Find("title").First().Text(), nil
+	return strings.TrimSpace(doc.Find("title").First().Text()), nil
 }
 
 func Filter(s []string, fn func(string) bool) []string {
@@ -50,4 +56,43 @@ func Filter(s []string, fn func(string) bool) []string {
 		}
 	}
 	return p
+}
+
+func RenderGraph(dot string) bytes.Buffer {
+	var out bytes.Buffer
+	cmd := exec.Command("dot", "-Tsvg")
+	cmd.Stdin = strings.NewReader(dot)
+	cmd.Stdout = &out
+	err := cmd.Run()
+	if err != nil {
+		log.Print(err.Error())
+	}
+	return out
+}
+
+func GenerateDotString(res []struct {
+	A neoism.Node
+	R neoism.Node
+	B neoism.Node
+}) string {
+	g := gographviz.NewGraph()
+	g.SetName("nodes")
+	g.SetDir(true)
+
+	for _, row := range res {
+		aname := fmt.Sprintf("\"%s\"", row.A.Data["name"].(string))
+		rkind := row.R.Data["kind"].(string)
+		bname := fmt.Sprintf("\"%s\"", row.B.Data["name"].(string))
+		g.AddNode("nodes", aname, map[string]string{
+			"label": aname,
+		})
+		g.AddNode("nodes", bname, map[string]string{
+			"label": bname,
+		})
+		g.AddEdge(aname, bname, true, map[string]string{
+			"label": rkind,
+		})
+	}
+
+	return g.String()
 }

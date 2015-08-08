@@ -18,10 +18,14 @@ func CreateRelationship(db *neoism.Database, w http.ResponseWriter, r *http.Requ
 		relationship = strings.ToLower(relationship)
 	}
 
-	target := r.FormValue("target")
-	source := r.FormValue("source")
-	if !(helpers.IsURL(target) && helpers.IsURL(source)) {
-		http.Error(w, "Invalid URL (target or source)", 400)
+	source, err := helpers.ParseURL(r.FormValue("source"))
+	if err != nil {
+		http.Error(w, "source is invalid URL: "+source, 400)
+		return
+	}
+	target, err := helpers.ParseURL(r.FormValue("target"))
+	if err != nil {
+		http.Error(w, "target is invalid URL: "+target, 400)
 		return
 	}
 
@@ -72,5 +76,5 @@ SET rel.kind = {relationshipKind}
 		return
 	}
 
-	http.Redirect(w, r, "/rels.svg", 302)
+	http.Redirect(w, r, "/cluster.svg?url="+source, 302)
 }

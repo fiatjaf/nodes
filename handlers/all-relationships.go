@@ -8,10 +8,8 @@ import (
 	"nodes/helpers"
 )
 
-func ViewRelationships(db *neoism.Database, w http.ResponseWriter, r *http.Request) {
-	// get nodes from database concerning the url requested
-	url := r.URL.Query().Get("url")
-
+func AllRelationships(db *neoism.Database, w http.ResponseWriter, r *http.Request) {
+	// get nodes from database
 	res := []struct {
 		A neoism.Node
 		R neoism.Node
@@ -19,15 +17,10 @@ func ViewRelationships(db *neoism.Database, w http.ResponseWriter, r *http.Reque
 	}{}
 	cq := neoism.CypherQuery{
 		Statement: `
-MATCH (u {url: {url}})
-MATCH (u)<-[:INSTANCE]-(a:Node)
-MATCH path=(a)-[r:RELATIONSHIP*1..10]-(b:Node)
-WITH relationships(path) as rels
-UNWIND rels AS r
-RETURN DISTINCT startnode(r) AS A, r AS R, endnode(r) AS B
+MATCH (a:Node)-[r:RELATIONSHIP]->(b:Node)
+RETURN a AS A, r AS R, b AS B
         `,
-		Parameters: neoism.Props{"url": url},
-		Result:     &res,
+		Result: &res,
 	}
 	err := db.Cypher(&cq)
 	if err != nil {

@@ -10,13 +10,13 @@ import (
 )
 
 func CreateEquality(db *neoism.Database, w http.ResponseWriter, r *http.Request) {
-	source := r.FormValue("source")
-	if !helpers.IsURL(source) {
+	source, err := helpers.ParseURL(r.FormValue("source"))
+	if err != nil {
 		http.Error(w, "source is invalid URL: "+source, 400)
 		return
 	}
-	target := r.FormValue("target")
-	if !helpers.IsURL(target) {
+	target, err := helpers.ParseURL(r.FormValue("target"))
+	if err != nil {
 		http.Error(w, "target is invalid URL: "+target, 400)
 		return
 	}
@@ -197,5 +197,5 @@ CREATE (appendTo)-[:INSTANCE {user: {user}, created: {now}}]->(floating)
 		return
 	}
 
-	http.Redirect(w, r, "/rels.svg", 302)
+	http.Redirect(w, r, "/cluster.svg?url="+source, 302)
 }
