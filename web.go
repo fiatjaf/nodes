@@ -33,12 +33,12 @@ func main() {
 	router.HandleFunc("/rel/", func(w http.ResponseWriter, r *http.Request) {
 		handlers.CreateRelationship(db, w, r)
 	}).Methods("POST")
-	router.HandleFunc("/rel/", func(w http.ResponseWriter, r *http.Request) {
-		handlers.ViewRelationships(db, w, r)
-	}).Methods("GET")
 	router.HandleFunc("/eql/", func(w http.ResponseWriter, r *http.Request) {
 		handlers.CreateEquality(db, w, r)
 	}).Methods("POST")
+	router.HandleFunc("/rels.svg", func(w http.ResponseWriter, r *http.Request) {
+		handlers.ViewRelationships(db, w, r)
+	}).Methods("GET")
 	// ~
 
 	// static files

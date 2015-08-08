@@ -87,6 +87,7 @@ RETURN id(sn) AS sn,
 	if row.SN != 0 && row.TN != 0 {
 		// both exists, transfer everything from the source to target and delete source
 		for _, r := range row.RELATIONSHIPS {
+			pretty.Log(row.SN, row.TN, r)
 			qs = append(qs, &neoism.CypherQuery{
 				Statement: `
 MATCH (sn) WHERE id(sn) = {sn}
@@ -196,5 +197,5 @@ CREATE (appendTo)-[:INSTANCE {user: {user}, created: {now}}]->(floating)
 		return
 	}
 
-	http.Redirect(w, r, "/", 302)
+	http.Redirect(w, r, "/rels.svg", 302)
 }

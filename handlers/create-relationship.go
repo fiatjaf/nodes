@@ -72,5 +72,5 @@ SET rel.kind = {relationshipKind}
 		return
 	}
 
-	http.Redirect(w, r, "/", 302)
+	http.Redirect(w, r, "/rels.svg", 302)
 }
