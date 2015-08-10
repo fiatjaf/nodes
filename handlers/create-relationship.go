@@ -76,5 +76,5 @@ SET rel.kind = {relationshipKind}
 		return
 	}
 
-	http.Redirect(w, r, "/cluster.svg?url="+source, 302)
+	w.WriteHeader(http.StatusOK)
 }

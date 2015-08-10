@@ -3083,7 +3083,7 @@ module.exports.run = function(domnode, vrender, handlers, BaseState) {
 };
 
 
-},{"dom-delegator":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/dom-delegator/index.js","error/typed":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/error/typed.js","immupdate":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/immupdate/immupdate.js","raf":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/raf/index.js","value-event/base-event":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/base-event.js","value-event/change":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/change.js","value-event/click":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/click.js","value-event/key":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/key.js","value-event/submit":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/submit.js","value-event/value":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/value.js","virtual-dom":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/index.js","virtual-dom/h":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/h.js","virtual-dom/vdom/create-element":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/create-element.js","virtual-dom/vdom/patch":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/patch.js","virtual-dom/vtree/diff":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vtree/diff.js","xtend":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/xtend/immutable.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/dom-delegator/add-event.js":[function(require,module,exports){
+},{"dom-delegator":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/dom-delegator/index.js","error/typed":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/error/typed.js","immupdate":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/immupdate/immupdate.js","raf":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/raf/index.js","value-event/base-event":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/base-event.js","value-event/change":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/change.js","value-event/click":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/click.js","value-event/key":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/key.js","value-event/submit":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/submit.js","value-event/value":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/value.js","virtual-dom":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/index.js","virtual-dom/h":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/h.js","virtual-dom/vdom/create-element":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/create-element.js","virtual-dom/vdom/patch":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/patch.js","virtual-dom/vtree/diff":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vtree/diff.js","xtend":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/xtend/immutable.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/dom-delegator/add-event.js":[function(require,module,exports){
 var EvStore = require("ev-store")
 
 module.exports = addEvent
@@ -4329,22 +4329,58 @@ function valueLambda(ev, broadcast) {
     broadcast(data);
 }
 
-},{"./base-event.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/base-event.js","form-data-set/element":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/node_modules/form-data-set/element.js","xtend":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/node_modules/xtend/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/create-element.js":[function(require,module,exports){
+},{"./base-event.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/base-event.js","form-data-set/element":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/node_modules/form-data-set/element.js","xtend":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/value-event/node_modules/xtend/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/xtend/immutable.js":[function(require,module,exports){
+module.exports = extend
+
+function extend() {
+    var target = {}
+
+    for (var i = 0; i < arguments.length; i++) {
+        var source = arguments[i]
+
+        for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+                target[key] = source[key]
+            }
+        }
+    }
+
+    return target
+}
+
+},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/xtend/mutable.js":[function(require,module,exports){
+module.exports = extend
+
+function extend(target) {
+    for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i]
+
+        for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+                target[key] = source[key]
+            }
+        }
+    }
+
+    return target
+}
+
+},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/create-element.js":[function(require,module,exports){
 var createElement = require("./vdom/create-element.js")
 
 module.exports = createElement
 
-},{"./vdom/create-element.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/create-element.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/diff.js":[function(require,module,exports){
+},{"./vdom/create-element.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/create-element.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/diff.js":[function(require,module,exports){
 var diff = require("./vtree/diff.js")
 
 module.exports = diff
 
-},{"./vtree/diff.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vtree/diff.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/h.js":[function(require,module,exports){
+},{"./vtree/diff.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vtree/diff.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/h.js":[function(require,module,exports){
 var h = require("./virtual-hyperscript/index.js")
 
 module.exports = h
 
-},{"./virtual-hyperscript/index.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/virtual-hyperscript/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/index.js":[function(require,module,exports){
+},{"./virtual-hyperscript/index.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/index.js":[function(require,module,exports){
 var diff = require("./diff.js")
 var patch = require("./patch.js")
 var h = require("./h.js")
@@ -4361,7 +4397,7 @@ module.exports = {
     VText: VText
 }
 
-},{"./create-element.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/create-element.js","./diff.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/diff.js","./h.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/h.js","./patch.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/patch.js","./vnode/vnode.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/vnode.js","./vnode/vtext.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/vtext.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/browser-split/index.js":[function(require,module,exports){
+},{"./create-element.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/create-element.js","./diff.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/diff.js","./h.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/h.js","./patch.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/patch.js","./vnode/vnode.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vnode.js","./vnode/vtext.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vtext.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/browser-split/index.js":[function(require,module,exports){
 /*!
  * Cross-Browser Split 1.1.1
  * Copyright 2007-2012 Steven Levithan <stevenlevithan.com>
@@ -4469,22 +4505,22 @@ module.exports = (function split(undef) {
   return self;
 })();
 
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/ev-store/index.js":[function(require,module,exports){
+},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/ev-store/index.js":[function(require,module,exports){
 arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/dom-delegator/node_modules/ev-store/index.js"][0].apply(exports,arguments)
-},{"individual/one-version":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/one-version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/index.js":[function(require,module,exports){
+},{"individual/one-version":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/one-version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/index.js":[function(require,module,exports){
 arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/dom-delegator/node_modules/ev-store/node_modules/individual/index.js"][0].apply(exports,arguments)
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/one-version.js":[function(require,module,exports){
+},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/one-version.js":[function(require,module,exports){
 arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/dom-delegator/node_modules/ev-store/node_modules/individual/one-version.js"][0].apply(exports,arguments)
-},{"./index.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/global/document.js":[function(require,module,exports){
+},{"./index.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/global/document.js":[function(require,module,exports){
 arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/dom-delegator/node_modules/global/document.js"][0].apply(exports,arguments)
-},{"min-document":"/home/fiatjaf/comp/go/src/nodes/node_modules/browserify/node_modules/browser-resolve/empty.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/is-object/index.js":[function(require,module,exports){
+},{"min-document":"/home/fiatjaf/comp/go/src/nodes/node_modules/browserify/node_modules/browser-resolve/empty.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/is-object/index.js":[function(require,module,exports){
 "use strict";
 
 module.exports = function isObject(x) {
 	return typeof x === "object" && x !== null;
 };
 
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/x-is-array/index.js":[function(require,module,exports){
+},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/x-is-array/index.js":[function(require,module,exports){
 var nativeIsArray = Array.isArray
 var toString = Object.prototype.toString
 
@@ -4494,12 +4530,12 @@ function isArray(obj) {
     return toString.call(obj) === "[object Array]"
 }
 
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/patch.js":[function(require,module,exports){
+},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/patch.js":[function(require,module,exports){
 var patch = require("./vdom/patch.js")
 
 module.exports = patch
 
-},{"./vdom/patch.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/patch.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/apply-properties.js":[function(require,module,exports){
+},{"./vdom/patch.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/patch.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/apply-properties.js":[function(require,module,exports){
 var isObject = require("is-object")
 var isHook = require("../vnode/is-vhook.js")
 
@@ -4598,7 +4634,7 @@ function getPrototype(value) {
     }
 }
 
-},{"../vnode/is-vhook.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vhook.js","is-object":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/is-object/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/create-element.js":[function(require,module,exports){
+},{"../vnode/is-vhook.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vhook.js","is-object":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/is-object/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/create-element.js":[function(require,module,exports){
 var document = require("global/document")
 
 var applyProperties = require("./apply-properties")
@@ -4646,7 +4682,7 @@ function createElement(vnode, opts) {
     return node
 }
 
-},{"../vnode/handle-thunk.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/handle-thunk.js","../vnode/is-vnode.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vnode.js","../vnode/is-vtext.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vtext.js","../vnode/is-widget.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-widget.js","./apply-properties":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/apply-properties.js","global/document":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/global/document.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/dom-index.js":[function(require,module,exports){
+},{"../vnode/handle-thunk.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/handle-thunk.js","../vnode/is-vnode.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vnode.js","../vnode/is-vtext.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vtext.js","../vnode/is-widget.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-widget.js","./apply-properties":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/apply-properties.js","global/document":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/global/document.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/dom-index.js":[function(require,module,exports){
 // Maps a virtual DOM tree onto a real DOM tree in an efficient manner.
 // We don't want to read all of the DOM nodes in the tree so we use
 // the in-order tree indexing to eliminate recursion down certain branches.
@@ -4733,7 +4769,7 @@ function ascending(a, b) {
     return a > b ? 1 : -1
 }
 
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/patch-op.js":[function(require,module,exports){
+},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/patch-op.js":[function(require,module,exports){
 var applyProperties = require("./apply-properties")
 
 var isWidget = require("../vnode/is-widget.js")
@@ -4886,7 +4922,7 @@ function replaceRoot(oldRoot, newRoot) {
     return newRoot;
 }
 
-},{"../vnode/is-widget.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-widget.js","../vnode/vpatch.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/vpatch.js","./apply-properties":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/apply-properties.js","./update-widget":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/update-widget.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/patch.js":[function(require,module,exports){
+},{"../vnode/is-widget.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-widget.js","../vnode/vpatch.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vpatch.js","./apply-properties":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/apply-properties.js","./update-widget":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/update-widget.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/patch.js":[function(require,module,exports){
 var document = require("global/document")
 var isArray = require("x-is-array")
 
@@ -4897,7 +4933,9 @@ module.exports = patch
 
 function patch(rootNode, patches, renderOptions) {
     renderOptions = renderOptions || {}
-    renderOptions.patch = renderOptions.patch || patchRecursive
+    renderOptions.patch = renderOptions.patch && renderOptions.patch !== patch
+        ? renderOptions.patch
+        : patchRecursive
     renderOptions.render = renderOptions.render || render
 
     return renderOptions.patch(rootNode, patches, renderOptions)
@@ -4966,7 +5004,7 @@ function patchIndices(patches) {
     return indices
 }
 
-},{"./create-element":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/create-element.js","./dom-index":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/dom-index.js","./patch-op":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/patch-op.js","global/document":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/global/document.js","x-is-array":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/x-is-array/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vdom/update-widget.js":[function(require,module,exports){
+},{"./create-element":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/create-element.js","./dom-index":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/dom-index.js","./patch-op":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/patch-op.js","global/document":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/global/document.js","x-is-array":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/x-is-array/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vdom/update-widget.js":[function(require,module,exports){
 var isWidget = require("../vnode/is-widget.js")
 
 module.exports = updateWidget
@@ -4983,7 +5021,7 @@ function updateWidget(a, b) {
     return false
 }
 
-},{"../vnode/is-widget.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-widget.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/virtual-hyperscript/hooks/ev-hook.js":[function(require,module,exports){
+},{"../vnode/is-widget.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-widget.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/hooks/ev-hook.js":[function(require,module,exports){
 'use strict';
 
 var EvStore = require('ev-store');
@@ -5012,7 +5050,7 @@ EvHook.prototype.unhook = function(node, propertyName) {
     es[propName] = undefined;
 };
 
-},{"ev-store":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/ev-store/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/virtual-hyperscript/hooks/soft-set-hook.js":[function(require,module,exports){
+},{"ev-store":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/ev-store/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/hooks/soft-set-hook.js":[function(require,module,exports){
 'use strict';
 
 module.exports = SoftSetHook;
@@ -5031,7 +5069,7 @@ SoftSetHook.prototype.hook = function (node, propertyName) {
     }
 };
 
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/virtual-hyperscript/index.js":[function(require,module,exports){
+},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/index.js":[function(require,module,exports){
 'use strict';
 
 var isArray = require('x-is-array');
@@ -5170,7 +5208,7 @@ function errorString(obj) {
     }
 }
 
-},{"../vnode/is-thunk":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-thunk.js","../vnode/is-vhook":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vhook.js","../vnode/is-vnode":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vnode.js","../vnode/is-vtext":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vtext.js","../vnode/is-widget":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-widget.js","../vnode/vnode.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/vnode.js","../vnode/vtext.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/vtext.js","./hooks/ev-hook.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/virtual-hyperscript/hooks/ev-hook.js","./hooks/soft-set-hook.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/virtual-hyperscript/hooks/soft-set-hook.js","./parse-tag.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/virtual-hyperscript/parse-tag.js","x-is-array":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/x-is-array/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/virtual-hyperscript/parse-tag.js":[function(require,module,exports){
+},{"../vnode/is-thunk":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-thunk.js","../vnode/is-vhook":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vhook.js","../vnode/is-vnode":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vnode.js","../vnode/is-vtext":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vtext.js","../vnode/is-widget":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-widget.js","../vnode/vnode.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vnode.js","../vnode/vtext.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vtext.js","./hooks/ev-hook.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/hooks/ev-hook.js","./hooks/soft-set-hook.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/hooks/soft-set-hook.js","./parse-tag.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/parse-tag.js","x-is-array":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/x-is-array/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/parse-tag.js":[function(require,module,exports){
 'use strict';
 
 var split = require('browser-split');
@@ -5226,7 +5264,7 @@ function parseTag(tag, props) {
     return props.namespace ? tagName : tagName.toUpperCase();
 }
 
-},{"browser-split":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/browser-split/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/handle-thunk.js":[function(require,module,exports){
+},{"browser-split":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/browser-split/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/handle-thunk.js":[function(require,module,exports){
 var isVNode = require("./is-vnode")
 var isVText = require("./is-vtext")
 var isWidget = require("./is-widget")
@@ -5268,14 +5306,14 @@ function renderThunk(thunk, previous) {
     return renderedThunk
 }
 
-},{"./is-thunk":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-thunk.js","./is-vnode":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vnode.js","./is-vtext":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vtext.js","./is-widget":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-widget.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-thunk.js":[function(require,module,exports){
+},{"./is-thunk":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-thunk.js","./is-vnode":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vnode.js","./is-vtext":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vtext.js","./is-widget":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-widget.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-thunk.js":[function(require,module,exports){
 module.exports = isThunk
 
 function isThunk(t) {
     return t && t.type === "Thunk"
 }
 
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vhook.js":[function(require,module,exports){
+},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vhook.js":[function(require,module,exports){
 module.exports = isHook
 
 function isHook(hook) {
@@ -5284,7 +5322,7 @@ function isHook(hook) {
        typeof hook.unhook === "function" && !hook.hasOwnProperty("unhook"))
 }
 
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vnode.js":[function(require,module,exports){
+},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vnode.js":[function(require,module,exports){
 var version = require("./version")
 
 module.exports = isVirtualNode
@@ -5293,7 +5331,7 @@ function isVirtualNode(x) {
     return x && x.type === "VirtualNode" && x.version === version
 }
 
-},{"./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vtext.js":[function(require,module,exports){
+},{"./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vtext.js":[function(require,module,exports){
 var version = require("./version")
 
 module.exports = isVirtualText
@@ -5302,17 +5340,17 @@ function isVirtualText(x) {
     return x && x.type === "VirtualText" && x.version === version
 }
 
-},{"./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-widget.js":[function(require,module,exports){
+},{"./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-widget.js":[function(require,module,exports){
 module.exports = isWidget
 
 function isWidget(w) {
     return w && w.type === "Widget"
 }
 
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/version.js":[function(require,module,exports){
+},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/version.js":[function(require,module,exports){
 module.exports = "2"
 
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/vnode.js":[function(require,module,exports){
+},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vnode.js":[function(require,module,exports){
 var version = require("./version")
 var isVNode = require("./is-vnode")
 var isWidget = require("./is-widget")
@@ -5386,7 +5424,7 @@ function VirtualNode(tagName, properties, children, key, namespace) {
 VirtualNode.prototype.version = version
 VirtualNode.prototype.type = "VirtualNode"
 
-},{"./is-thunk":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-thunk.js","./is-vhook":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vhook.js","./is-vnode":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vnode.js","./is-widget":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-widget.js","./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/vpatch.js":[function(require,module,exports){
+},{"./is-thunk":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-thunk.js","./is-vhook":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vhook.js","./is-vnode":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vnode.js","./is-widget":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-widget.js","./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vpatch.js":[function(require,module,exports){
 var version = require("./version")
 
 VirtualPatch.NONE = 0
@@ -5410,7 +5448,7 @@ function VirtualPatch(type, vNode, patch) {
 VirtualPatch.prototype.version = version
 VirtualPatch.prototype.type = "VirtualPatch"
 
-},{"./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/vtext.js":[function(require,module,exports){
+},{"./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vtext.js":[function(require,module,exports){
 var version = require("./version")
 
 module.exports = VirtualText
@@ -5422,7 +5460,7 @@ function VirtualText(text) {
 VirtualText.prototype.version = version
 VirtualText.prototype.type = "VirtualText"
 
-},{"./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vtree/diff-props.js":[function(require,module,exports){
+},{"./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vtree/diff-props.js":[function(require,module,exports){
 var isObject = require("is-object")
 var isHook = require("../vnode/is-vhook")
 
@@ -5482,7 +5520,7 @@ function getPrototype(value) {
   }
 }
 
-},{"../vnode/is-vhook":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vhook.js","is-object":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/is-object/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vtree/diff.js":[function(require,module,exports){
+},{"../vnode/is-vhook":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vhook.js","is-object":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/is-object/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vtree/diff.js":[function(require,module,exports){
 var isArray = require("x-is-array")
 
 var VPatch = require("../vnode/vpatch")
@@ -5911,79 +5949,7 @@ function appendPatch(apply, patch) {
     }
 }
 
-},{"../vnode/handle-thunk":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/handle-thunk.js","../vnode/is-thunk":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-thunk.js","../vnode/is-vnode":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vnode.js","../vnode/is-vtext":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vtext.js","../vnode/is-widget":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-widget.js","../vnode/vpatch":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/vpatch.js","./diff-props":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vtree/diff-props.js","x-is-array":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/x-is-array/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/xtend/immutable.js":[function(require,module,exports){
-module.exports = extend
-
-function extend() {
-    var target = {}
-
-    for (var i = 0; i < arguments.length; i++) {
-        var source = arguments[i]
-
-        for (var key in source) {
-            if (source.hasOwnProperty(key)) {
-                target[key] = source[key]
-            }
-        }
-    }
-
-    return target
-}
-
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/xtend/mutable.js":[function(require,module,exports){
-module.exports = extend
-
-function extend(target) {
-    for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i]
-
-        for (var key in source) {
-            if (source.hasOwnProperty(key)) {
-                target[key] = source[key]
-            }
-        }
-    }
-
-    return target
-}
-
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/h.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/h.js"][0].apply(exports,arguments)
-},{"./virtual-hyperscript/index.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/browser-split/index.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/browser-split/index.js"][0].apply(exports,arguments)
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/ev-store/index.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/ev-store/index.js"][0].apply(exports,arguments)
-},{"individual/one-version":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/one-version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/index.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/index.js"][0].apply(exports,arguments)
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/one-version.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/one-version.js"][0].apply(exports,arguments)
-},{"./index.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/ev-store/node_modules/individual/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/x-is-array/index.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/node_modules/x-is-array/index.js"][0].apply(exports,arguments)
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/hooks/ev-hook.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/virtual-hyperscript/hooks/ev-hook.js"][0].apply(exports,arguments)
-},{"ev-store":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/ev-store/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/hooks/soft-set-hook.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/virtual-hyperscript/hooks/soft-set-hook.js"][0].apply(exports,arguments)
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/index.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/virtual-hyperscript/index.js"][0].apply(exports,arguments)
-},{"../vnode/is-thunk":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-thunk.js","../vnode/is-vhook":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vhook.js","../vnode/is-vnode":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vnode.js","../vnode/is-vtext":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vtext.js","../vnode/is-widget":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-widget.js","../vnode/vnode.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vnode.js","../vnode/vtext.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vtext.js","./hooks/ev-hook.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/hooks/ev-hook.js","./hooks/soft-set-hook.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/hooks/soft-set-hook.js","./parse-tag.js":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/parse-tag.js","x-is-array":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/x-is-array/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/virtual-hyperscript/parse-tag.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/virtual-hyperscript/parse-tag.js"][0].apply(exports,arguments)
-},{"browser-split":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/browser-split/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-thunk.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-thunk.js"][0].apply(exports,arguments)
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vhook.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vhook.js"][0].apply(exports,arguments)
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vnode.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vnode.js"][0].apply(exports,arguments)
-},{"./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vtext.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-vtext.js"][0].apply(exports,arguments)
-},{"./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-widget.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/is-widget.js"][0].apply(exports,arguments)
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/version.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/version.js"][0].apply(exports,arguments)
-},{}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vnode.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/vnode.js"][0].apply(exports,arguments)
-},{"./is-thunk":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-thunk.js","./is-vhook":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vhook.js","./is-vnode":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vnode.js","./is-widget":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-widget.js","./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vtext.js":[function(require,module,exports){
-arguments[4]["/home/fiatjaf/comp/go/src/nodes/node_modules/talio/node_modules/virtual-dom/vnode/vtext.js"][0].apply(exports,arguments)
-},{"./version":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/version.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-elements/index.js":[function(require,module,exports){
+},{"../vnode/handle-thunk":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/handle-thunk.js","../vnode/is-thunk":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-thunk.js","../vnode/is-vnode":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vnode.js","../vnode/is-vtext":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-vtext.js","../vnode/is-widget":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/is-widget.js","../vnode/vpatch":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vnode/vpatch.js","./diff-props":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/vtree/diff-props.js","x-is-array":"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-dom/node_modules/x-is-array/index.js"}],"/home/fiatjaf/comp/go/src/nodes/node_modules/virtual-elements/index.js":[function(require,module,exports){
 var h = require('virtual-dom/h')
 
 var tags = ['a', 'abbr', 'acronym', 'address', 'applet', 'area', 'article', 'aside', 'audio', 'b', 'base', 'basefont', 'bdi', 'bdo', 'big', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'form', 'frame', 'frameset', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'keygen', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'menu', 'menuitem', 'meta', 'meter', 'nav', 'noframes', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'small', 'source', 'span', 'strike', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'tt', 'u', 'ul', 'var', 'video', 'wbr']
@@ -6039,13 +6005,16 @@ humane.success = humane.spawn({
 
 router = new Router();
 
-State = tl.StateFactory;
+State = tl.StateFactory({
+  graphURL: null
+});
 
 handlers = {
   createRelationship: function(State, form) {
     return Promise.resolve().then(function() {
       return superagent.post('/rel/').set('Content-Type', 'application/x-www-form-urlencoded').send(form);
     }).then(function() {
+      State.change('graphURL', "/cluster.svg?url=" + form.source + "&r=" + (Math.random()));
       return humane.success('Relationship created!');
     })["catch"](function(e) {
       console.log(e);
@@ -6055,7 +6024,8 @@ handlers = {
   createEquality: function(State, form) {
     return Promise.resolve().then(function() {
       return superagent.post('/eql/').set('Content-Type', 'application/x-www-form-urlencoded').send(form);
-    }).then(function() {
+    }).then(function(res) {
+      State.change('graphURL', "/cluster.svg?url=" + form.source + "&r=" + (Math.random()));
       return humane.success('Equality created!');
     })["catch"](function(e) {
       console.log(e);
@@ -6070,11 +6040,11 @@ tl.run(document.body, require('./vrender-main'), handlers, State);
 
 
 },{"./vrender-main":"/home/fiatjaf/comp/go/src/nodes/site/vrender-main.coffee","lie":"/home/fiatjaf/comp/go/src/nodes/node_modules/lie/lib/index.js","routerjs":"/home/fiatjaf/comp/go/src/nodes/node_modules/routerjs/dist/router.min.js","superagent":"/home/fiatjaf/comp/go/src/nodes/node_modules/superagent/lib/client.js","superagent-promise":"/home/fiatjaf/comp/go/src/nodes/node_modules/superagent-promise/index.js","talio":"/home/fiatjaf/comp/go/src/nodes/node_modules/talio/index.coffee"}],"/home/fiatjaf/comp/go/src/nodes/site/vrender-main.coffee":[function(require,module,exports){
-var a, b, button, code, dd, div, dl, dt, form, h1, h2, h3, h4, i, input, label, legend, li, main, nav, option, p, pre, ref, section, select, small, span, strong, table, tbody, td, textarea, tfoot, th, thead, tl, tr, ul;
+var a, b, button, code, dd, div, dl, dt, form, h1, h2, h3, h4, i, img, input, label, legend, li, main, nav, object, option, p, pre, ref, section, select, small, span, strong, table, tbody, td, textarea, tfoot, th, thead, tl, tr, ul;
 
 tl = require('talio');
 
-ref = require('virtual-elements'), div = ref.div, main = ref.main, span = ref.span, pre = ref.pre, nav = ref.nav, section = ref.section, small = ref.small, i = ref.i, p = ref.p, b = ref.b, a = ref.a, button = ref.button, code = ref.code, h1 = ref.h1, h2 = ref.h2, h3 = ref.h3, h4 = ref.h4, strong = ref.strong, legend = ref.legend, form = ref.form, legend = ref.legend, label = ref.label, input = ref.input, textarea = ref.textarea, select = ref.select, label = ref.label, option = ref.option, table = ref.table, thead = ref.thead, tbody = ref.tbody, tfoot = ref.tfoot, tr = ref.tr, th = ref.th, td = ref.td, dl = ref.dl, dt = ref.dt, dd = ref.dd, ul = ref.ul, li = ref.li;
+ref = require('virtual-elements'), div = ref.div, main = ref.main, span = ref.span, pre = ref.pre, nav = ref.nav, section = ref.section, small = ref.small, img = ref.img, i = ref.i, p = ref.p, b = ref.b, a = ref.a, button = ref.button, code = ref.code, h1 = ref.h1, h2 = ref.h2, h3 = ref.h3, h4 = ref.h4, strong = ref.strong, legend = ref.legend, object = ref.object, form = ref.form, legend = ref.legend, label = ref.label, input = ref.input, textarea = ref.textarea, select = ref.select, label = ref.label, option = ref.option, table = ref.table, thead = ref.thead, tbody = ref.tbody, tfoot = ref.tfoot, tr = ref.tr, th = ref.th, td = ref.td, dl = ref.dl, dt = ref.dt, dd = ref.dd, ul = ref.ul, li = ref.li;
 
 module.exports = function(state, channels) {
   return div({}, form({
@@ -6096,7 +6066,10 @@ module.exports = function(state, channels) {
   }), input({
     name: 'target',
     placeholder: 'target'
-  }), button({}, 'save')));
+  }), button({}, 'save')), state.graphURL ? object({
+    type: "image/svg+xml",
+    data: state.graphURL
+  }) : void 0);
 };
 
 

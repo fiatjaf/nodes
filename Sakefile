@@ -2,6 +2,7 @@ js:
   help: build the javascripts
   dependencies:
     - site/app.coffee
+    - site/vrender-main.coffee
     - package.json
   output:
     - site/bundle.js

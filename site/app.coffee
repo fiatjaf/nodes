@@ -14,6 +14,7 @@ humane.success = humane.spawn(addnCls: 'humane-flatty-success', timeout: 2500)
 router = new Router()
 
 State = tl.StateFactory
+  graphURL: null
 
 handlers =
   createRelationship: (State, form) ->
@@ -23,6 +24,7 @@ handlers =
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send(form)
     ).then(->
+      State.change 'graphURL', "/cluster.svg?url=#{form.source}&r=#{Math.random()}"
       humane.success 'Relationship created!'
     ).catch((e) ->
       console.log e
@@ -34,7 +36,8 @@ handlers =
         .post('/eql/')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send(form)
-    ).then(->
+    ).then((res) ->
+      State.change 'graphURL', "/cluster.svg?url=#{form.source}&r=#{Math.random()}"
       humane.success 'Equality created!'
     ).catch((e) ->
       console.log e

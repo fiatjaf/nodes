@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/jmcvetta/neoism"
 	"github.com/kr/pretty"
+	"log"
 	"net/http"
 	"time"
 
@@ -84,10 +85,12 @@ RETURN id(sn) AS sn,
 
 	// do our checks to decide if we are going to create Nodes, mix them or what
 	qs = make([]*neoism.CypherQuery, 0)
-	if row.SN != 0 && row.TN != 0 {
+	if row.SN == row.TN {
+		// they exist and are the same, so we do nothing
+	} else if row.SN != 0 && row.TN != 0 {
 		// both exists, transfer everything from the source to target and delete source
 		for _, r := range row.RELATIONSHIPS {
-			pretty.Log(row.SN, row.TN, r)
+			log.Print(row.SN, row.TN, r)
 			qs = append(qs, &neoism.CypherQuery{
 				Statement: `
 MATCH (sn) WHERE id(sn) = {sn}
@@ -134,6 +137,7 @@ DELETE oldinstance, sn
 				"user": user,
 			},
 		})
+		pretty.Log(qs)
 	} else if row.SN == 0 && row.TN == 0 {
 		// none exist, create one for both
 		qs = append(qs, &neoism.CypherQuery{
@@ -197,5 +201,5 @@ CREATE (appendTo)-[:INSTANCE {user: {user}, created: {now}}]->(floating)
 		return
 	}
 
-	http.Redirect(w, r, "/cluster.svg?url="+source, 302)
+	w.WriteHeader(http.StatusOK)
 }

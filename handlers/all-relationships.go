@@ -11,9 +11,10 @@ import (
 func AllRelationships(db *neoism.Database, w http.ResponseWriter, r *http.Request) {
 	// get nodes from database
 	res := []struct {
-		A neoism.Node
-		R neoism.Node
-		B neoism.Node
+		A    string
+		B    string
+		REL  string
+		URLS []string
 	}{}
 	cq := neoism.CypherQuery{
 		Statement: `

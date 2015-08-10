@@ -1,8 +1,8 @@
 tl = require 'talio'
 
 {div, main, span, pre, nav, section,
- small, i, p, b, a, button, code,
- h1, h2, h3, h4, strong, legend,
+ small, img, i, p, b, a, button, code,
+ h1, h2, h3, h4, strong, legend, object,
  form, legend, label, input, textarea, select, label, option,
  table, thead, tbody, tfoot, tr, th, td,
  dl, dt, dd,
@@ -23,4 +23,5 @@ module.exports = (state, channels) ->
       (input name: 'target', placeholder: 'target')
       (button {}, 'save')
     )
+    (object type: "image/svg+xml", data: state.graphURL) if state.graphURL
   )
