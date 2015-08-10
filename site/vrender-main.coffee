@@ -23,5 +23,5 @@ module.exports = (state, channels) ->
       (input name: 'target', placeholder: 'target')
       (button {}, 'save')
     )
-    (object type: "image/svg+xml", data: state.graphURL) if state.graphURL
+    (object style: {width: '100%'}, type: "image/svg+xml", data: state.graphURL) if state.graphURL
   )

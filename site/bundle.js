@@ -6067,6 +6067,9 @@ module.exports = function(state, channels) {
     name: 'target',
     placeholder: 'target'
   }), button({}, 'save')), state.graphURL ? object({
+    style: {
+      width: '100%'
+    },
     type: "image/svg+xml",
     data: state.graphURL
   }) : void 0);

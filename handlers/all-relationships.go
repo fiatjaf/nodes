@@ -31,7 +31,7 @@ RETURN a AS A, r AS R, b AS B
 	}
 
 	// make dot string
-	s := helpers.GenerateDotString(res)
+	s := helpers.GenerateDotString(res, r.URL.Query())
 	log.Print(s)
 
 	// generate svg graph

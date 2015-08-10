@@ -5,7 +5,9 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/awalterschulze/gographviz"
+	"io"
 	"log"
+	"net/url"
 	"os/exec"
 	"strings"
 )
@@ -15,7 +17,10 @@ func GenerateDotString(res []struct {
 	B    string
 	REL  string
 	URLS []string
-}) string {
+}, attrs url.Values) string {
+	attrs.Del("url")
+	attrs.Del("r")
+
 	// split our slice in a slice with only nodes and a slice with only rels
 	var splitAt int
 	for index, row := range res {
@@ -29,7 +34,11 @@ func GenerateDotString(res []struct {
 	g := gographviz.NewGraph()
 	g.SetName(graphName)
 	g.SetDir(true)
-	g.AddAttr(graphName, "rankdir", "LR")
+	g.AddAttr(graphName, "size", "\"15,1000\"")
+	g.AddAttr(graphName, "ratio", "compress")
+	for k := range attrs {
+		g.AddAttr(graphName, k, attrs.Get(k))
+	}
 
 	// add nodes
 	for _, row := range res[:splitAt] {
@@ -79,20 +88,35 @@ func relationshipDir(kind string) string {
 
 func RenderGraph(dot string) bytes.Buffer {
 	var out bytes.Buffer
-	cmd := exec.Command("dot", "-Tsvg")
-	cmd.Stdin = strings.NewReader(dot)
-	cmd.Stdout = &out
-	stderr, _ := cmd.StderrPipe()
-	go func() {
+	unflatten := exec.Command("unflatten", "-l 10")
+	graphviz := exec.Command("dot", "-Tsvg")
+
+	reader, writer := io.Pipe()
+
+	unflatten.Stdin = strings.NewReader(dot)
+	unflatten.Stdout = writer
+	graphviz.Stdin = reader
+	graphviz.Stdout = &out
+
+	var stderr io.ReadCloser
+	stderr, _ = unflatten.StderrPipe()
+	go func(stderr io.ReadCloser) {
 		in := bufio.NewScanner(stderr)
 		for in.Scan() {
 			log.Print(in.Text())
 		}
-	}()
-
-	err := cmd.Run()
-	if err != nil {
-		log.Print(err.Error())
-	}
+	}(stderr)
+	stderr, _ = graphviz.StderrPipe()
+	go func(stderr io.ReadCloser) {
+		in := bufio.NewScanner(stderr)
+		for in.Scan() {
+			log.Print(in.Text())
+		}
+	}(stderr)
+	unflatten.Start()
+	graphviz.Start()
+	unflatten.Wait()
+	writer.Close()
+	graphviz.Wait()
 	return out
 }
