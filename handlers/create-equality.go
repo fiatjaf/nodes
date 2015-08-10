@@ -128,7 +128,8 @@ ON CREATE SET newinstance = oldinstance
 ON CREATE SET newinstance.user = {user}
 
 WITH oldinstance, sn
-DELETE oldinstance, sn
+MATCH (sn)-[srels:RELATIONSHIP]-()
+DELETE oldinstance, sn, srels
             `,
 			Parameters: neoism.Props{
 				"sn":   row.SN,
