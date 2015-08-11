@@ -1,0 +1,97 @@
+#nodes * {
+  box-sizing: border-box;
+  text-shadow: none;
+  color: white;
+  line-height: normal;
+}
+
+#nodes {
+  background-color: gray;
+  font-family: 'Open Sans', Verdana, Helvetica;
+  font-size: 12.5px;
+  width: 200px;
+  margin: 0;
+  padding: 4px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 101;
+}
+
+#nodes { 
+  p, h1, div, section, header, form, {
+    display: block;
+    width: initial;
+    height: auto;
+    overflow: auto;
+  }
+  input, button, img, object, span {
+    display: inline;
+  }
+
+  h1 {
+    line-height: normal;
+    margin: initial;
+  }
+
+  p {
+    margin: 0 7px;
+  }
+}
+
+#nodes header {
+  h1 {
+    text-align: center;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  p {
+    text-align: center;
+    font-size: 11px;
+  }
+
+  width: 100%;
+}
+
+#nodes button {
+  -webkit-border-radius: 9;
+  -moz-border-radius: 9;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 13px;
+  background: #3498db;
+  padding: 5px 10px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #3cb0fd;
+    text-decoration: none;
+  }
+}
+
+#nodes iframe {
+  display: none;
+}
+
+#nodes section {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  & > div {
+    margin: 0 0.5%;
+    padding: 3px 0;
+    border-bottom: 1px white dashed;
+  }
+
+  h1 {
+    font-size: 15px;
+    margin: 1px;
+    margin-bottom: 4px;
+  }
+}

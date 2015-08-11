@@ -40,6 +40,11 @@ func CreateRelationship(db *neoism.Database, w http.ResponseWriter, r *http.Requ
 		return
 	}
 
+	if helpers.EqualURLs(source, target) {
+		http.Error(w, "URLs are equal.", 400)
+		return
+	}
+
 	user := "fiatjaf"
 
 	cq := neoism.CypherQuery{

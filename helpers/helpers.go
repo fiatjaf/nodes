@@ -8,7 +8,7 @@ import (
 )
 
 func ParseURL(potentialURL string) (string, error) {
-	u, err := url.Parse(potentialURL)
+	u, err := url.Parse(strings.TrimSpace(potentialURL))
 	u.Fragment = ""
 	if err != nil {
 		return "", err
@@ -20,6 +20,13 @@ func ParseURL(potentialURL string) (string, error) {
 		return "", err
 	}
 	return u.String(), nil
+}
+
+func EqualURLs(source string, target string) bool {
+	if source == target {
+		return true
+	}
+	return false
 }
 
 func GetTitle(URL string) (string, error) {

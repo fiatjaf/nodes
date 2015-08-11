@@ -1,18 +1,36 @@
 js:
   help: build the javascripts
   dependencies:
-    - site/app.coffee
-    - site/vrender-main.coffee
+    - site/*.coffee
+    - embed/*.coffee
     - package.json
   output:
-    - site/bundle.js
+    - static/app.js
+    - static/embed.js
+    - static/iframe.js
   formula: >
-    ./node_modules/.bin/browserifyinc -t coffeeify --extension='.coffee' site/app.coffee > site/bundle.js
+    ./node_modules/.bin/browserifyinc -t coffeeify --extension='.coffee' site/app.coffee > static/app.js;
+    ./node_modules/.bin/browserifyinc -t coffeeify --extension='.coffee' embed/app.coffee > static/embed.js;
+    ./node_modules/.bin/browserifyinc -t coffeeify --extension='.coffee' embed/iframe.coffee > static/iframe.js;
 css:
   help: build the css
   dependencies:
     - site/style.less
+    - embed/style.less
   output:
-    - site/bundle.css
+    - static/app.css
+    - static/embed.css
   formula: >
-    ./node_modules/.bin/lessc site/style.less > site/bundle.css
+    ./node_modules/.bin/lessc site/style.less > static/app.css;
+    ./node_modules/.bin/lessc embed/style.less > static/embed.css;
+html:
+  help: copy html to directories
+  dependencies:
+    - site/index.html
+    - embed/iframe.html
+  output:
+    - static/index.html
+    - static/iframe.html
+  formula: >
+    cp site/index.html static/index.html;
+    cp embed/iframe.html static/iframe.html;

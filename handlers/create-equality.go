@@ -33,6 +33,11 @@ func CreateEquality(db *neoism.Database, w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	if helpers.EqualURLs(source, target) {
+		http.Error(w, "URLs are equal.", 400)
+		return
+	}
+
 	user := "fiatjaf"
 	// user.GetKarma()
 

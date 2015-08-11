@@ -45,7 +45,6 @@ func main() {
 	// ~
 
 	// static files
-	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./site/")))
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
 	// ~
 
