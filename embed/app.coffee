@@ -9,12 +9,12 @@ handlers =
   createRelationship: (State, data) ->
     Promise.resolve().then(->
       superagent
-        .post('/rel/')
+        .post(baseURL + '/rel/')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send(
           source: State.get 'here.url'
-          target: State.get data.target
-          rel: State.get "otherTabs.#{data.target}.rel"
+          target: data.target
+          rel: data.rel
         )
     ).then(->
 
@@ -22,9 +22,12 @@ handlers =
       console.log e
     )
   createEquality: (State, data) ->
+    if not confirm('Is this equal to "' + data.target + '" ?')
+      return
+
     Promise.resolve().then(->
       superagent
-        .post('/eql/')
+        .post(baseURL + '/eql/')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send(
           source: State.get 'here.url'
@@ -36,6 +39,13 @@ handlers =
       console.log e
     )
   openRelationshipInput: (State, data) ->
+    for url, tab of State.get 'otherTabs'
+      if typeof tab.rel == 'string'
+        State.silentlyUpdate {
+          otherTabs:
+            "#{url}":
+               rel: null
+        }
     State.change {
       otherTabs:
         "#{data.target}":
@@ -45,7 +55,7 @@ handlers =
     State.change {
       otherTabs:
         "#{data.target}":
-          rel: data.value
+          rel: data.rel
     }
 
 # append container

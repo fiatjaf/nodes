@@ -17,22 +17,37 @@ module.exports = (tab, channels) ->
         }, {preventDefault: true}
       , "Establish relationship")
     else
-      (form {},
+      (form
+        'ev-submit': tl.sendSubmit channels.createRelationship, {
+          rel: tab.rel
+          target: tab.url
+        }, {preventDefault: true}
+      ,
         (input
+          name: 'rel'
           value: tab.rel
-          'ev-input': tl.sendChange channels.changeRelationship, {target: tab.url}
+          'ev-input': tl.sendChange channels.changeRelationship, {
+            target: tab.url
+          }
         )
         (button {}, 'Save')
       )
 
-  (div key: tab.url,
-    (h1
-      title: tab.url
-    , tab.title)
+  if tab.relExists
+    (button disabled: true,
+      tab.existingRel
+    )
+  else
     (button
       'ev-click': tl.sendClick channels.createEquality, {
         target: tab.url
       }, {preventDefault: true}
     , "Declare equal")
     (RelationshipButton)
+
+
+  (div key: tab.url,
+    (h1
+      title: tab.url
+    , tab.title)
   )

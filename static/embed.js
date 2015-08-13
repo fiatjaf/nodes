@@ -14,18 +14,21 @@ baseURL = require('./baseurl');
 handlers = {
   createRelationship: function(State, data) {
     return Promise.resolve().then(function() {
-      return superagent.post('/rel/').set('Content-Type', 'application/x-www-form-urlencoded').send({
+      return superagent.post(baseURL + '/rel/').set('Content-Type', 'application/x-www-form-urlencoded').send({
         source: State.get('here.url'),
-        target: State.get(data.target),
-        rel: State.get("otherTabs." + data.target + ".rel")
+        target: data.target,
+        rel: data.rel
       });
     }).then(function() {})["catch"](function(e) {
       return console.log(e);
     });
   },
   createEquality: function(State, data) {
+    if (!confirm('Is this equal to "' + data.target + '" ?')) {
+      return;
+    }
     return Promise.resolve().then(function() {
-      return superagent.post('/eql/').set('Content-Type', 'application/x-www-form-urlencoded').send({
+      return superagent.post(baseURL + '/eql/').set('Content-Type', 'application/x-www-form-urlencoded').send({
         source: State.get('here.url'),
         target: data.target
       });
@@ -34,14 +37,29 @@ handlers = {
     });
   },
   openRelationshipInput: function(State, data) {
-    var obj;
+    var obj, obj1, ref, tab, url;
+    ref = State.get('otherTabs');
+    for (url in ref) {
+      tab = ref[url];
+      if (typeof tab.rel === 'string') {
+        State.silentlyUpdate({
+          otherTabs: (
+            obj = {},
+            obj["" + url] = {
+              rel: null
+            },
+            obj
+          )
+        });
+      }
+    }
     return State.change({
       otherTabs: (
-        obj = {},
-        obj["" + data.target] = {
+        obj1 = {},
+        obj1["" + data.target] = {
           rel: ''
         },
-        obj
+        obj1
       )
     });
   },
@@ -51,7 +69,7 @@ handlers = {
       otherTabs: (
         obj = {},
         obj["" + data.target] = {
-          rel: data.value
+          rel: data.rel
         },
         obj
       )
@@ -226,7 +244,15 @@ module.exports = function(tab, channels) {
           })
         }, "Establish relationship");
       default:
-        return form({}, input({
+        return form({
+          'ev-submit': tl.sendSubmit(channels.createRelationship, {
+            rel: tab.rel,
+            target: tab.url
+          }, {
+            preventDefault: true
+          })
+        }, input({
+          name: 'rel',
           value: tab.rel,
           'ev-input': tl.sendChange(channels.changeRelationship, {
             target: tab.url
@@ -234,17 +260,25 @@ module.exports = function(tab, channels) {
         }), button({}, 'Save'));
     }
   })();
+  if (tab.relExists) {
+    button({
+      disabled: true
+    }, tab.existingRel);
+  } else {
+    button({
+      'ev-click': tl.sendClick(channels.createEquality, {
+        target: tab.url
+      }, {
+        preventDefault: true
+      })
+    }, "Declare equal");
+    RelationshipButton;
+  }
   return div({
     key: tab.url
   }, h1({
     title: tab.url
-  }, tab.title), button({
-    'ev-click': tl.sendClick(channels.createEquality, {
-      target: tab.url
-    }, {
-      preventDefault: true
-    })
-  }, "Declare equal"), RelationshipButton);
+  }, tab.title));
 };
 
 

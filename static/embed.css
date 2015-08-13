@@ -15,7 +15,7 @@
   top: 0;
   bottom: 0;
   right: 0;
-  z-index: 101;
+  z-index: 1010;
 }
 #nodes p,
 #nodes h1,
@@ -34,6 +34,9 @@
 #nodes object,
 #nodes span {
   display: inline;
+}
+#nodes input {
+  color: black;
 }
 #nodes h1 {
   line-height: normal;

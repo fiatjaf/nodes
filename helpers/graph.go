@@ -68,7 +68,7 @@ func nodeTable(name string, urls []string) string {
 	table := "<<table border=\"0\" cellborder=\"0\" cellpadding=\"4\">"
 	table += fmt.Sprintf("<tr><td bgcolor=\"black\" align=\"center\"><font color=\"white\"><b> %s </b></font></td></tr>", name)
 	for _, url := range urls {
-		table += fmt.Sprintf("<tr><td href=\"%s\" target=\"_blank\" tooltip=\"%s\">%s</td></tr>", url, url, url)
+		table += fmt.Sprintf("<tr><td href=\"%s\" target=\"_blank\" tooltip=\"%s\">%s</td></tr>", url, url, url[7:])
 	}
 	table += "</table>>"
 	return table

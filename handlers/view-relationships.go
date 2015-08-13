@@ -4,13 +4,27 @@ import (
 	"github.com/jmcvetta/neoism"
 	"log"
 	"net/http"
+	"net/url"
 
 	"nodes/helpers"
 )
 
 func ViewRelationships(db *neoism.Database, w http.ResponseWriter, r *http.Request) {
+	log.Print(r.URL.Query().Get("url"))
+
 	// get nodes from database concerning the url requested
-	url := r.URL.Query().Get("url")
+	rawurl, err := url.QueryUnescape(r.URL.Query().Get("url"))
+	if err != nil {
+		http.Error(w, "URL should be escaped.", 400)
+		return
+	}
+
+	u, err := helpers.ParseURL(rawurl)
+	if err != nil {
+		http.Error(w, "URL is invalid.", 400)
+		return
+	}
+	stdurl := helpers.GetStandardizedURL(u)
 
 	res := []struct {
 		A    string
@@ -20,7 +34,7 @@ func ViewRelationships(db *neoism.Database, w http.ResponseWriter, r *http.Reque
 	}{}
 	cq := neoism.CypherQuery{
 		Statement: `
-MATCH (u:URL {url: {url}})<-[:INSTANCE]-(a)
+MATCH (u:URL)<-[:INSTANCE]-(a) WHERE u.stdurl = {url} OR u.url = {url}
 MATCH path=(a)-[r:RELATIONSHIP*1..10]-(b)
 WITH nodes(path) AS nodes
 UNWIND nodes AS n
@@ -28,13 +42,13 @@ WITH DISTINCT n AS n
 MATCH (u)<-[:INSTANCE]-(n)
 RETURN
   n.name AS a,
-  extract(url IN collect(DISTINCT u) | url.url) AS urls,
+  extract(url IN collect(DISTINCT u) | url.stdurl) AS urls,
   '' AS b,
   '' AS rel
 
 UNION ALL
 
-MATCH (u:URL {url: {url}})<-[:INSTANCE]-(a)
+MATCH (u:URL)<-[:INSTANCE]-(a) WHERE u.stdurl = {url} OR u.url = {url}
 MATCH path=(a)-[r:RELATIONSHIP*1..10]-(b)
 WITH relationships(path) AS rels
 UNWIND rels AS r
@@ -45,10 +59,10 @@ RETURN
   r.kind AS rel,
   [] AS urls
         `,
-		Parameters: neoism.Props{"url": url},
+		Parameters: neoism.Props{"url": stdurl},
 		Result:     &res,
 	}
-	err := db.Cypher(&cq)
+	err = db.Cypher(&cq)
 	if err != nil {
 		log.Print(err)
 		http.Error(w, "An error ocurred", 400)

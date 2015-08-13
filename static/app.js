@@ -6014,7 +6014,7 @@ handlers = {
     return Promise.resolve().then(function() {
       return superagent.post('/rel/').set('Content-Type', 'application/x-www-form-urlencoded').send(form);
     }).then(function() {
-      State.change('graphURL', "/cluster.svg?url=" + form.source + "&r=" + (Math.random()));
+      State.change('graphURL', "/cluster.svg?url=" + (encodeURIComponent(form.source)) + "&r=" + (Math.random()));
       return humane.success('Relationship created!');
     })["catch"](function(e) {
       console.log(e);
@@ -6025,7 +6025,7 @@ handlers = {
     return Promise.resolve().then(function() {
       return superagent.post('/eql/').set('Content-Type', 'application/x-www-form-urlencoded').send(form);
     }).then(function(res) {
-      State.change('graphURL', "/cluster.svg?url=" + form.source + "&r=" + (Math.random()));
+      State.change('graphURL', "/cluster.svg?url=" + (encodeURIComponent(form.source)) + "&r=" + (Math.random()));
       return humane.success('Equality created!');
     })["catch"](function(e) {
       console.log(e);

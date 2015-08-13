@@ -24,7 +24,7 @@ handlers =
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send(form)
     ).then(->
-      State.change 'graphURL', "/cluster.svg?url=#{form.source}&r=#{Math.random()}"
+      State.change 'graphURL', "/cluster.svg?url=#{encodeURIComponent form.source}&r=#{Math.random()}"
       humane.success 'Relationship created!'
     ).catch((e) ->
       console.log e
@@ -37,7 +37,7 @@ handlers =
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send(form)
     ).then((res) ->
-      State.change 'graphURL', "/cluster.svg?url=#{form.source}&r=#{Math.random()}"
+      State.change 'graphURL', "/cluster.svg?url=#{encodeURIComponent form.source}&r=#{Math.random()}"
       humane.success 'Equality created!'
     ).catch((e) ->
       console.log e

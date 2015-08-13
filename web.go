@@ -2,8 +2,10 @@ package main
 
 import (
 	"github.com/carbocation/interpose"
+	"github.com/carbocation/interpose/adaptors"
 	"github.com/gorilla/mux"
 	"github.com/jmcvetta/neoism"
+	"github.com/rs/cors"
 	"log"
 	"net/http"
 	"os"
@@ -22,6 +24,10 @@ func main() {
 
 	// middleware
 	middle := interpose.New()
+	middle.Use(adaptors.FromNegroni(cors.New(cors.Options{
+		// CORS
+		AllowedOrigins: []string{"*"},
+	})))
 
 	// router
 	router := mux.NewRouter()
@@ -36,11 +42,11 @@ func main() {
 	router.HandleFunc("/eql/", func(w http.ResponseWriter, r *http.Request) {
 		handlers.CreateEquality(db, w, r)
 	}).Methods("POST")
+	router.HandleFunc("/btw/", func(w http.ResponseWriter, r *http.Request) {
+		handlers.RelationshipsBetween(db, w, r)
+	}).Methods("GET")
 	router.HandleFunc("/cluster.svg", func(w http.ResponseWriter, r *http.Request) {
 		handlers.ViewRelationships(db, w, r)
-	}).Methods("GET")
-	router.HandleFunc("/rels.svg", func(w http.ResponseWriter, r *http.Request) {
-		handlers.AllRelationships(db, w, r)
 	}).Methods("GET")
 	// ~
 

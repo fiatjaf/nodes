@@ -13,37 +13,40 @@ import (
 func CreateEquality(db *neoism.Database, w http.ResponseWriter, r *http.Request) {
 	source, err := helpers.ParseURL(r.FormValue("source"))
 	if err != nil {
-		http.Error(w, "source is invalid URL: "+source, 400)
+		http.Error(w, "source is invalid URL: "+r.FormValue("source"), 400)
 		return
 	}
 	target, err := helpers.ParseURL(r.FormValue("target"))
 	if err != nil {
-		http.Error(w, "target is invalid URL: "+target, 400)
+		http.Error(w, "target is invalid URL: "+r.FormValue("target"), 400)
 		return
 	}
-
 	sourceTitle, err := helpers.GetTitle(source)
 	if err != nil {
-		http.Error(w, "Couldn't fetch title for "+source, 400)
+		http.Error(w, "Couldn't fetch title for "+source.String(), 400)
 		return
 	}
 	targetTitle, err := helpers.GetTitle(target)
 	if err != nil {
-		http.Error(w, "Couldn't fetch title for "+target, 400)
+		http.Error(w, "Couldn't fetch title for "+target.String(), 400)
 		return
 	}
-
 	if helpers.EqualURLs(source, target) {
-		http.Error(w, "URLs are equal.", 400)
+		http.Error(w, "urls are equal.", 400)
 		return
 	}
 
+	// standardize urls
+	stdsource := helpers.GetStandardizedURL(source)
+	stdtarget := helpers.GetStandardizedURL(target)
+
+	// get user
 	user := "fiatjaf"
 	// user.GetKarma()
 
 	now := time.Now().UTC().Format("20060102150405")
 
-	var qs []*neoism.CypherQuery
+	var queries []*neoism.CypherQuery
 	res := []struct {
 		SN            int
 		TN            int
@@ -53,8 +56,8 @@ func CreateEquality(db *neoism.Database, w http.ResponseWriter, r *http.Request)
 	}{}
 	cq := neoism.CypherQuery{
 		Statement: `
-MERGE (su:URL {url: {source}}) ON CREATE SET su.title = {sourceTitle}
-MERGE (tu:URL {url: {target}}) ON CREATE SET tu.title = {targetTitle}
+MERGE (su:URL {stdurl: {stdsource}}) ON CREATE SET su.title = {sourceTitle}
+MERGE (tu:URL {stdurl: {stdtarget}}) ON CREATE SET tu.title = {targetTitle}
 
 WITH su, tu
 OPTIONAL MATCH (su)<-[:INSTANCE]-(sn:Node)
@@ -69,16 +72,16 @@ RETURN id(sn) AS sn,
        extract(rel IN rels | id(rel)) AS relationships
         `,
 		Parameters: neoism.Props{
-			"source":      source,
-			"target":      target,
+			"stdsource":   stdsource,
+			"stdtarget":   stdtarget,
 			"sourceTitle": sourceTitle,
 			"targetTitle": targetTitle,
 		},
 		Result: &res,
 	}
-	qs = append(qs, &cq)
+	queries = append(queries, &cq)
 
-	txn, err := db.Begin(qs)
+	txn, err := db.Begin(queries)
 	if err != nil {
 		pretty.Log(err)
 		http.Error(w, err.Error(), 500)
@@ -89,14 +92,14 @@ RETURN id(sn) AS sn,
 	row := res[0]
 
 	// do our checks to decide if we are going to create Nodes, mix them or what
-	qs = make([]*neoism.CypherQuery, 0)
-	if row.SN == row.TN {
+	queries = make([]*neoism.CypherQuery, 0)
+	if row.SN == row.TN && row.SN != 0 {
 		// they exist and are the same, so we do nothing
 	} else if row.SN != 0 && row.TN != 0 {
 		// both exists, transfer everything from the source to target and delete source
 		for _, r := range row.RELATIONSHIPS {
 			log.Print(row.SN, row.TN, r)
-			qs = append(qs, &neoism.CypherQuery{
+			queries = append(queries, &neoism.CypherQuery{
 				Statement: `
 MATCH (sn) WHERE id(sn) = {sn}
 MATCH (tn) WHERE id(tn) = {tn}
@@ -121,7 +124,7 @@ FOREACH (x IN CASE WHEN b = sn THEN [1] ELSE [] END |
 				},
 			})
 		}
-		qs = append(qs, &neoism.CypherQuery{
+		queries = append(queries, &neoism.CypherQuery{
 			Statement: `
 MATCH (sn) WHERE id(sn) = {sn}
 MATCH (tn) WHERE id(tn) = {tn}
@@ -143,17 +146,16 @@ DELETE oldinstance, sn, srels
 				"user": user,
 			},
 		})
-		pretty.Log(qs)
 	} else if row.SN == 0 && row.TN == 0 {
 		// none exist, create one for both
-		qs = append(qs, &neoism.CypherQuery{
+		queries = append(queries, &neoism.CypherQuery{
 			Statement: `
 MATCH (su) WHERE id(su) = {su}
 MATCH (tu) WHERE id(tu) = {tu}
 
 CREATE (n:Node {created: {now}, name: tu.title})
-CREATE (n)-[:INSTANCE {user: {user}, created: {now}}]->(su)
-CREATE (n)-[:INSTANCE {user: {user}, created: {now}}]->(tu)
+MERGE (n)-[r1:INSTANCE {user: {user}}]->(su) ON CREATE SET r1.created = {now}
+MERGE (n)-[r2:INSTANCE {user: {user}}]->(tu) ON CREATE SET r2.created = {now}
             `,
 			Parameters: neoism.Props{
 				"su":   row.SU,
@@ -162,6 +164,7 @@ CREATE (n)-[:INSTANCE {user: {user}, created: {now}}]->(tu)
 				"now":  now,
 			},
 		})
+		pretty.Log(queries)
 	} else {
 		var floating int
 		var appendTo int
@@ -175,12 +178,12 @@ CREATE (n)-[:INSTANCE {user: {user}, created: {now}}]->(tu)
 			floating = row.SU
 			appendTo = row.TN
 		}
-		qs = append(qs, &neoism.CypherQuery{
+		queries = append(queries, &neoism.CypherQuery{
 			Statement: `
 MATCH (floating) WHERE id(floating) = {floating}
 MATCH (appendTo) WHERE id(appendTo) = {appendTo}
 
-CREATE (appendTo)-[:INSTANCE {user: {user}, created: {now}}]->(floating)
+MERGE (appendTo)-[r:INSTANCE {user: {user}}]->(floating) ON CREATE SET r.created = {now}
             `,
 			Parameters: neoism.Props{
 				"floating": floating,
@@ -191,9 +194,10 @@ CREATE (appendTo)-[:INSTANCE {user: {user}, created: {now}}]->(floating)
 		})
 	}
 
-	err = txn.Query(qs)
+	err = txn.Query(queries)
 	if err != nil {
 		pretty.Log(err)
+		pretty.Log(queries)
 		http.Error(w, err.Error(), 500)
 		txn.Rollback()
 		return
