@@ -27,6 +27,7 @@ func init() {
 	importantQueryParam["youtube.com/playlist"] = []string{"list"}
 	importantQueryParam["books.google.com"] = []string{"id"}
 	importantQueryParam["books.google.com.br"] = []string{"id"}
+	importantQueryParam["drive.google.com/folderview"] = []string{"id"}
 }
 
 func ParseURL(potentialURL string) (*url.URL, error) {

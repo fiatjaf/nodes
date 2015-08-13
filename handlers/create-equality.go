@@ -56,8 +56,13 @@ func CreateEquality(db *neoism.Database, w http.ResponseWriter, r *http.Request)
 	}{}
 	cq := neoism.CypherQuery{
 		Statement: `
-MERGE (su:URL {stdurl: {stdsource}}) ON CREATE SET su.title = {sourceTitle}
-MERGE (tu:URL {stdurl: {stdtarget}}) ON CREATE SET tu.title = {targetTitle}
+MERGE (su:URL {stdurl: {stdsource}})
+ON CREATE SET su.title = {sourceTitle}
+SET su.rawurl = {rawsource}
+
+MERGE (tu:URL {stdurl: {stdtarget}})
+ON CREATE SET tu.title = {targetTitle}
+SET su.rawurl = {rawtarget}
 
 WITH su, tu
 OPTIONAL MATCH (su)<-[:INSTANCE]-(sn:Node)
@@ -74,6 +79,8 @@ RETURN id(sn) AS sn,
 		Parameters: neoism.Props{
 			"stdsource":   stdsource,
 			"stdtarget":   stdtarget,
+			"rawsource":   source.String(),
+			"rawtarget":   target.String(),
 			"sourceTitle": sourceTitle,
 			"targetTitle": targetTitle,
 		},

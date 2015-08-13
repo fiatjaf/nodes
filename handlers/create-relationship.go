@@ -56,9 +56,12 @@ func CreateRelationship(db *neoism.Database, w http.ResponseWriter, r *http.Requ
 		// sn, su, tn, tu = source node, source url, target node, target url
 		Statement: `
 MERGE (su:URL {stdurl: {stdsource}})
+ON CREATE SET su.title = {sourceTitle}
+SET su.rawurl = {rawsource}
+
 MERGE (tu:URL {stdurl: {stdtarget}})
-SET su.title = {sourceTitle}
-SET tu.title = {targetTitle}
+ON CREATE SET tu.title = {targetTitle}
+SET su.rawurl = {rawtarget}
 
 CREATE UNIQUE (su)<-[:INSTANCE]-(sn:Node)
 CREATE UNIQUE (tu)<-[:INSTANCE]-(tn:Node)
@@ -68,19 +71,12 @@ SET tn.name = CASE WHEN tn.name IS NOT NULL THEN tn.name ELSE tu.title END
 MERGE (sn)-[rel:RELATIONSHIP {user: {user}}]->(tn)
 ON CREATE SET rel.created = {now}
 SET rel.kind = {relationshipKind}
-
-FOREACH (x IN CASE WHEN {source} <> {stdsource} THEN [1] ELSE [] END |
-  SET rel.rawsource = {source}
-)
-FOREACH (x IN CASE WHEN {target} <> {stdtarget} THEN [1] ELSE [] END |
-  SET rel.rawtarget = {target}
-)
         `,
 		Parameters: neoism.Props{
 			"stdsource":        stdsource,
 			"stdtarget":        stdtarget,
-			"source":           source.String(),
-			"target":           target.String(),
+			"rawsource":        source.String(),
+			"rawtarget":        target.String(),
 			"sourceTitle":      sourceTitle,
 			"targetTitle":      targetTitle,
 			"user":             user,
