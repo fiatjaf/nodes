@@ -2,7 +2,6 @@ package helpers
 
 import (
 	"errors"
-	"github.com/PuerkitoBio/goquery"
 	"net/url"
 	"strings"
 )
@@ -92,29 +91,6 @@ func GetStandardizedURL(u *url.URL) string {
 	u.RawQuery = stdrawqs
 
 	return u.String()
-}
-
-func GetTitle(u *url.URL) (string, error) {
-	doc, err := goquery.NewDocument(u.String())
-	if err != nil {
-		return getLastPathPart(u)
-	}
-	title := strings.TrimSpace(doc.Find("title").First().Text())
-	if title == "" {
-		return getLastPathPart(u)
-	}
-	return title, nil
-}
-
-func getLastPathPart(u *url.URL) (string, error) {
-	path := strings.Split(u.Path, "/")
-	path = Filter(path, func(s string) bool {
-		if s == "" {
-			return false
-		}
-		return true
-	})
-	return path[len(path)-1], nil
 }
 
 func Filter(s []string, fn func(string) bool) []string {
