@@ -9,14 +9,18 @@ import (
 	"log"
 	"net/url"
 	"os/exec"
+	"strconv"
 	"strings"
 )
 
 func GenerateDotString(res []struct {
-	A    string
-	B    string
-	REL  string
-	URLS []string
+	ANAME   string
+	BNAME   string
+	AID     int
+	BID     int
+	RELKIND string
+	RELID   int
+	URLS    []string
 }, attrs url.Values) string {
 	attrs.Del("url")
 	attrs.Del("r")
@@ -24,7 +28,7 @@ func GenerateDotString(res []struct {
 	// split our slice in a slice with only nodes and a slice with only rels
 	var splitAt int
 	for index, row := range res {
-		if row.B != "" {
+		if row.BNAME != "" {
 			splitAt = index
 			break
 		}
@@ -42,8 +46,9 @@ func GenerateDotString(res []struct {
 
 	// add nodes
 	for _, row := range res[:splitAt] {
-		g.AddNode(graphName, fmt.Sprintf("\"%s\"", row.A), map[string]string{
-			"label":    nodeTable(row.A, row.URLS),
+		g.AddNode(graphName, strconv.Itoa(row.AID), map[string]string{
+			"id":       strconv.Itoa(row.AID),
+			"label":    nodeTable(row.ANAME, row.URLS),
 			"shape":    "box",
 			"fontname": "Verdana",
 			"fontsize": "9",
@@ -52,10 +57,11 @@ func GenerateDotString(res []struct {
 
 	// add edges
 	for _, row := range res[splitAt:] {
-		g.AddEdge(fmt.Sprintf("\"%s\"", row.A), fmt.Sprintf("\"%s\"", row.B), true, map[string]string{
-			"label":    row.REL,
-			"dir":      relationshipDir(row.REL),
-			"tooltip":  row.REL,
+		g.AddEdge(strconv.Itoa(row.AID), strconv.Itoa(row.BID), true, map[string]string{
+			"id":       strconv.Itoa(row.RELID),
+			"label":    row.RELKIND,
+			"dir":      relationshipDir(row.RELKIND),
+			"tooltip":  row.RELKIND,
 			"fontname": "Verdana",
 			"fontsize": "9",
 		})

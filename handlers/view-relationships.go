@@ -27,10 +27,13 @@ func ViewRelationships(db *neoism.Database, w http.ResponseWriter, r *http.Reque
 	stdurl := helpers.GetStandardizedURL(u)
 
 	res := []struct {
-		A    string
-		B    string
-		REL  string
-		URLS []string
+		ANAME   string
+		BNAME   string
+		AID     int
+		BID     int
+		RELKIND string
+		RELID   int
+		URLS    []string
 	}{}
 	cq := neoism.CypherQuery{
 		Statement: `
@@ -41,10 +44,13 @@ UNWIND nodes AS n
 WITH DISTINCT n AS n
 MATCH (u)<-[:INSTANCE]-(n)
 RETURN
-  n.name AS a,
+  n.name AS aname,
+  id(n) AS aid,
   extract(url IN collect(DISTINCT u) | url.stdurl) AS urls,
-  '' AS b,
-  '' AS rel
+  '' AS bname,
+  0 AS bid,
+  '' AS relkind,
+  0 AS relid
 
 UNION ALL
 
@@ -53,10 +59,14 @@ MATCH path=(a)-[r:RELATIONSHIP*1..10]-(b)
 WITH relationships(path) AS rels
 UNWIND rels AS r
 WITH DISTINCT r AS r
+WITH startnode(r) AS a, endnode(r) AS b, r
 RETURN
-  startnode(r).name AS a,
-  endnode(r).name AS b,
-  r.kind AS rel,
+  a.name AS aname,
+  id(a) AS aid,
+  b.name AS bname,
+  id(b) AS bid,
+  r.kind AS relkind,
+  id(r) AS relid,
   [] AS urls
         `,
 		Parameters: neoism.Props{"url": stdurl},
