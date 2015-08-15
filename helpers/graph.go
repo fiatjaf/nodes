@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/awalterschulze/gographviz"
+	"html"
 	"io"
 	"log"
 	"net/url"
@@ -71,9 +72,28 @@ func GenerateDotString(res []struct {
 }
 
 func nodeTable(name string, urls []string) string {
-	table := "<<table border=\"0\" cellborder=\"0\" cellpadding=\"4\">"
-	table += fmt.Sprintf("<tr><td bgcolor=\"black\" align=\"center\"><font color=\"white\"><b> %s </b></font></td></tr>", name)
+	// escape name
+	name = html.EscapeString(name)
+
+	// turn big things like 'how do we eat bananas' into 'how ... bananas'
+	nameshow := name
+	if len(name) > 45 {
+		nameshow = name[:28] + " ... " + name[len(name)-12:]
+	}
+
+	// escape urls
+	for i := range urls {
+		urls[i] = html.EscapeString(urls[i])
+	}
+
+	table := fmt.Sprintf("<<table tooltip=\"%s\" border=\"0\" cellborder=\"0\" cellpadding=\"4\">", name)
+	table += fmt.Sprintf("<tr><td bgcolor=\"black\" align=\"center\"><font color=\"white\"><b> %s </b></font></td></tr>", nameshow)
 	for _, url := range urls {
+		// remove url endings on show
+		urlshow := url
+		if len(urlshow) > 45 {
+			urlshow = urlshow[:42] + "..."
+		}
 		table += fmt.Sprintf("<tr><td href=\"%s\" target=\"_blank\" tooltip=\"%s\">%s</td></tr>", url, url, url[7:])
 	}
 	table += "</table>>"
